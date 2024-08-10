@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.8.0"
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
@@ -44,10 +46,9 @@ android {
 
 dependencies {
     implementation libs.retrofit
-    implementation libs.converter.moshi
-    implementation libs.moshi.kotlin
-    implementation libs.moshi
-    implementation libs.moshi.kotlin.v1130
+    implementation libs.okhttp
+    implementation libs.kotlinx.serialization.json
+    implementation libs.converter.kotlinx.serialization
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
     implementation libs.hilt.android
