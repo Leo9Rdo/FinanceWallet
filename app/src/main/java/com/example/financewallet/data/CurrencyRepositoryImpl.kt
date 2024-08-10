@@ -1,8 +1,8 @@
 package com.example.financewallet.data
 
-import com.example.financewallet.domain.CurrencyApiService
+import com.example.financewallet.data.currencyApi.CurrencyApiService
+import com.example.financewallet.data.currencyApi.CurrencyResponse
 import com.example.financewallet.domain.entity.Currency
-import com.example.financewallet.domain.entity.RateResponse
 import com.example.financewallet.domain.repository.CurrencyRepository
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -11,10 +11,14 @@ import kotlinx.coroutines.withContext
 class CurrencyRepositoryImpl @Inject constructor(
     private val api: CurrencyApiService
 ) : CurrencyRepository {
-    private val currencyList = mutableListOf<Currency>()
 
     override suspend fun getAllCurrencies(): List<Currency> {
         return withContext(Dispatchers.IO) {
+            val currencyList = listOf(
+                Currency(1, "BYN", "Белорусский рубль", 1.0),
+                fetchCurrency("USD"),
+                fetchCurrency("EUR")
+            )
             currencyList
         }
     }
@@ -26,16 +30,14 @@ class CurrencyRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchCurrencies(curId: String, ondate: String?): Currency {
+    override suspend fun fetchCurrency(curId: String): Currency {
         return withContext(Dispatchers.IO) {
-            val response = api.getRate(curId)
-            val currency = mapToCurrency(response)
-            currencyList.add(currency)
-            currency
+            val response = api.getCurrency(curId)
+            mapToCurrency(response)
         }
     }
 
-    override fun mapToCurrency(apiCurrency: RateResponse): Currency {
+    private fun mapToCurrency(apiCurrency: CurrencyResponse): Currency {
         return Currency(
             id = apiCurrency.curId,
             abbreviation = apiCurrency.curAbbreviation,

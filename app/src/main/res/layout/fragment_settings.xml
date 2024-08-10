@@ -15,10 +15,12 @@
         android:textStyle="bold"
         android:textSize="18sp" />
 
-    <Spinner
-        android:id="@+id/currency_spinner"
+    <TextView
+        android:id="@+id/currency_selector"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:spinnerMode="dropdown" />
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/default_currency"
+        android:gravity="center_vertical" />
 
 </LinearLayout>
