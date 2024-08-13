@@ -2,6 +2,8 @@ package com.example.financewallet.data
 
 import com.example.financewallet.domain.entity.Portfolio
 import com.example.financewallet.domain.repository.PortfolioRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -9,29 +11,25 @@ import javax.inject.Singleton
 class PortfolioRepositoryImpl @Inject constructor() : PortfolioRepository {
     private val portfolios = mutableMapOf<Int, Portfolio>()
 
-    override suspend fun getPortfolio(id: Int): Portfolio {
-        return portfolios[id] ?: throw NoSuchElementException("Portfolio not found")
+    override suspend fun getPortfolio(id: Int): Portfolio = withContext(Dispatchers.IO) {
+        portfolios[id] ?: throw NoSuchElementException("Portfolio not found")
     }
 
-    override suspend fun getAllPortfolios(): List<Portfolio> {
-        return portfolios.values.toList()
+    override suspend fun getAllPortfolios(): List<Portfolio> = withContext(Dispatchers.IO) {
+        portfolios.values.toList()
     }
 
-    override suspend fun addPortfolio(portfolio: Portfolio) {
+    override suspend fun savePortfolio(portfolio: Portfolio) = withContext(Dispatchers.IO) {
         val newId = (portfolios.keys.maxOrNull() ?: 0) + 1
-        val newPortfolio = portfolio.copy(id = newId)
-        portfolios[newPortfolio.id] = newPortfolio
-    }
-
-    override suspend fun updatePortfolio(portfolio: Portfolio) {
-        if (portfolios.containsKey(portfolio.id)) {
-            portfolios[portfolio.id] = portfolio
+        if (portfolio.id == 0 || !portfolios.containsKey(portfolio.id)) {
+            val newPortfolio = portfolio.copy(id = newId)
+            portfolios[newPortfolio.id] = newPortfolio
         } else {
-            throw NoSuchElementException("Portfolio not found")
+            portfolios[portfolio.id] = portfolio
         }
     }
 
-    override suspend fun deletePortfolio(id: Int) {
+    override suspend fun deletePortfolio(id: Int): Unit = withContext(Dispatchers.IO)  {
         portfolios.remove(id)
     }
 }

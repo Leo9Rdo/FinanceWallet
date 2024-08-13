@@ -28,10 +28,10 @@ class PortfolioViewModel @Inject constructor(
         }
     }
 
-    fun addPortfolio(name: String) {
+    fun savePortfolio(portfolio: Portfolio) {
         viewModelScope.launch {
-            val newPortfolio = portfolioInteractor.addPortfolio(name)
-            _portfolios.value = _portfolios.value?.plus(newPortfolio)
+            portfolioInteractor.savePortfolio(portfolio)
+            loadPortfolios()
         }
     }
 
@@ -39,15 +39,6 @@ class PortfolioViewModel @Inject constructor(
         viewModelScope.launch {
             portfolioInteractor.deletePortfolio(id)
             _portfolios.value = _portfolios.value?.filter { it.id != id }
-        }
-    }
-
-    fun updatePortfolio(updatePortfolio: Portfolio) {
-        viewModelScope.launch {
-            portfolioInteractor.updatePortfolio(updatePortfolio)
-            _portfolios.value = _portfolios.value?.map {
-                if (it.id == updatePortfolio.id) updatePortfolio else it
-            }
         }
     }
 }

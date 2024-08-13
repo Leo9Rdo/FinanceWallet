@@ -15,14 +15,8 @@ class PortfolioInteractor @Inject constructor(
         return portfolioRepository.getAllPortfolios()
     }
 
-    suspend fun addPortfolio(name: String): Portfolio {
-        val newPortfolio = Portfolio(id = 0, name = name, assets = listOf())
-        portfolioRepository.addPortfolio(newPortfolio)
-        return newPortfolio
-    }
-
-    suspend fun updatePortfolio(portfolio: Portfolio) {
-        portfolioRepository.updatePortfolio(portfolio)
+    suspend fun savePortfolio(portfolio: Portfolio) {
+        portfolioRepository.savePortfolio(portfolio)
     }
 
     suspend fun deletePortfolio(id: Int) {

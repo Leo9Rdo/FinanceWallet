@@ -74,15 +74,11 @@ class PortfolioListFragment : Fragment() {
             .setPositiveButton(R.string.save) { _, _ ->
                 val newPortfolio = portfolio?.copy(name = input.text.toString())
                     ?: Portfolio(
-                        (portfolioViewModel.portfolios.value?.size ?: 0),
+                        0,
                         input.text.toString(),
                         emptyList()
                     )
-                if (portfolio == null) {
-                    portfolioViewModel.addPortfolio(input.text.toString())
-                } else {
-                    portfolioViewModel.updatePortfolio(newPortfolio)
-                }
+                portfolioViewModel.savePortfolio(newPortfolio)
             }
             .setNegativeButton(R.string.cancel, null)
         dialogBuilder.create().show()
