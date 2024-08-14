@@ -9,10 +9,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.example.financewallet.domain.repository.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class SettingsRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context
@@ -24,15 +26,19 @@ class SettingsRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveCurrency(currencyName: String) {
-        context.dataStore.edit { preferences ->
-            preferences[SELECTED_CURRENCY_KEY] = currencyName
+        withContext(Dispatchers.IO) {
+            context.dataStore.edit { preferences ->
+                preferences[SELECTED_CURRENCY_KEY] = currencyName
+            }
         }
     }
 
     override suspend fun getSavedCurrency(): String {
-        return context.dataStore.data
-            .map { preferences ->
-                preferences[SELECTED_CURRENCY_KEY] ?: DEFAULT_CURRENCY
-            }.first()
+        return withContext(Dispatchers.IO) {
+            context.dataStore.data
+                .map { preferences ->
+                    preferences[SELECTED_CURRENCY_KEY] ?: DEFAULT_CURRENCY
+                }.first()
+        }
     }
 }
