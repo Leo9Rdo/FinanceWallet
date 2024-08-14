@@ -9,4 +9,16 @@
     <string name="asset_currency">Asset currency</string>
     <string name="asset_market_value">Asset market value</string>
     <string name="asset_purchase_date">Asset purchase date</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_delete">Delete</string>
+    <string name="add_portfolio">Add portfolio</string>
+    <string name="new_portfolio">New portfolio</string>
+    <string name="edit_portfolio">Edit portfolio</string>
+    <string name="enter_portfolio_name">Enter portfolio name </string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_portfolio">Delete portfolio</string>
+    <string name="are_you_sure">Are you sure</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
