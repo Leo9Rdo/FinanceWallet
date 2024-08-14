@@ -5,9 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".presentation.portfolio.PortfolioListFragment">
 
-    <TextView
-        android:id="@+id/fragment_portfolio_list_text"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_portfolios"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/add_portfolio"
+        android:src="@drawable/baseline_add_24" />
 
 </FrameLayout>
