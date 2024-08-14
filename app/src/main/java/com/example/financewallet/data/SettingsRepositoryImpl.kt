@@ -1,29 +1,38 @@
 package com.example.financewallet.data
 
 import android.content.Context
-import android.content.SharedPreferences
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.example.financewallet.domain.repository.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class SettingsRepositoryImpl @Inject constructor(
-    @ApplicationContext context: Context
+    @ApplicationContext private val context: Context
 ) : SettingsRepository {
 
     companion object {
-        private const val PREF_NAME = "currency_preference"
-        private const val SELECTED_CURRENCY = "selected_currency"
+        private val SELECTED_CURRENCY_KEY = stringPreferencesKey("selected_currency")
         private const val DEFAULT_CURRENCY = "Белорусский рубль"
     }
 
-    private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-
-    override fun saveCurrency(currencyName: String) {
-        sharedPreferences.edit().putString(SELECTED_CURRENCY, currencyName).apply()
+    override suspend fun saveCurrency(currencyName: String) {
+        context.dataStore.edit { preferences ->
+            preferences[SELECTED_CURRENCY_KEY] = currencyName
+        }
     }
 
-    override fun getSavedCurrency(): String {
-        return sharedPreferences.getString(SELECTED_CURRENCY, DEFAULT_CURRENCY) ?: DEFAULT_CURRENCY
+    override suspend fun getSavedCurrency(): String {
+        return context.dataStore.data
+            .map { preferences ->
+                preferences[SELECTED_CURRENCY_KEY] ?: DEFAULT_CURRENCY
+            }.first()
     }
 }

@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.financewallet.domain.interactor.CurrencyInteractor
-import com.example.financewallet.domain.repository.SettingsRepository
+import com.example.financewallet.domain.interactor.SettingsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class CurrencyViewModel @Inject constructor(
-    private val settingsRepository: SettingsRepository,
+    private val settingsInteractor: SettingsInteractor,
     private val currencyInteractor: CurrencyInteractor
 ) : ViewModel() {
 
@@ -27,8 +27,10 @@ class CurrencyViewModel @Inject constructor(
     }
 
     fun selectCurrency(currencyName: String) {
-        settingsRepository.saveCurrency(currencyName)
-        _selectedCurrencyModel.value = settingsRepository.getSavedCurrency()
+        viewModelScope.launch {
+            settingsInteractor.saveCurrency(currencyName)
+            _selectedCurrencyModel.value = settingsInteractor.getSavedCurrency()
+        }
     }
 
     private fun getAvailableCurrenciesNames() {
