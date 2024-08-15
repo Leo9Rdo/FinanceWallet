@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.financewallet.domain.entity.Portfolio
 import com.example.financewallet.domain.interactor.PortfolioInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(

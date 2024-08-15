@@ -3,9 +3,10 @@ package com.example.financewallet.domain.interactor
 import com.example.financewallet.domain.entity.Portfolio
 import com.example.financewallet.domain.repository.PortfolioRepository
 import javax.inject.Inject
+import javax.inject.Named
 
 class PortfolioInteractor @Inject constructor(
-    private val portfolioRepository: PortfolioRepository
+    @Named("Database") private val portfolioRepository: PortfolioRepository
 ) {
     suspend fun getPortfolio(id: Int): Portfolio {
         return portfolioRepository.getPortfolio(id)
