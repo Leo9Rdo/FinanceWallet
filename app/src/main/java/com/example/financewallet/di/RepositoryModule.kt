@@ -22,15 +22,20 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    @Named("InMemory")
+    @Named(QUALIFIER_IN_MEMORY)
     fun bindInMemoryPortfolioRepository(
         portfolioRepositoryImpl: PortfolioRepositoryImpl
     ): PortfolioRepository
 
     @Binds
     @Singleton
-    @Named("Database")
+    @Named(QUALIFIER_DATABASE)
     fun bindDatabasePortfolioRepository(
         databasePortfolioRepository: DatabasePortfolioRepository
     ): PortfolioRepository
+
+    companion object {
+        const val QUALIFIER_IN_MEMORY = "InMemory"
+        const val QUALIFIER_DATABASE = "Database"
+    }
 }

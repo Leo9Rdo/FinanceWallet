@@ -7,7 +7,6 @@ import com.example.financewallet.domain.entity.Asset
 @Entity(
     tableName = "portfolios"
 )
-
 data class PortfolioEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,

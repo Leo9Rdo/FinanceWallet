@@ -10,7 +10,6 @@ import com.example.financewallet.data.entity.PortfolioEntity
     entities = [PortfolioEntity::class],
     version = 1
 )
-
 @TypeConverters(AssetListConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 

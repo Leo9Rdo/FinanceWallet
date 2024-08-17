@@ -22,7 +22,7 @@ class DatabasePortfolioRepository @Inject constructor(
     }
 
     override suspend fun savePortfolio(portfolio: Portfolio) = withContext(Dispatchers.IO) {
-        portfolioDao.savePortfolio(portfolio.toEntityModel())
+        portfolioDao.upsertPortfolio(portfolio.toEntityModel())
     }
 
     override suspend fun deletePortfolio(id: Int) = withContext(Dispatchers.IO) {

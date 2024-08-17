@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.google.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -46,7 +47,6 @@ android {
 dependencies {
     implementation libs.hilt.android
     kapt libs.hilt.compiler
-    def nav_version = "2.7.7"
     implementation libs.androidx.navigation.fragment.ktx
     implementation libs.androidx.navigation.ui.ktx
     implementation libs.androidx.core.ktx
@@ -60,12 +60,11 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
-    def room_version = "2.6.1"
-    annotationProcessor(libs.androidx.room.compiler.v250)
+    annotationProcessor(libs.androidx.room.compiler)
     implementation libs.androidx.room.runtime
     implementation libs.androidx.room.ktx
     implementation libs.gson
-    ksp(libs.androidx.room.compiler.v250)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.kotlinx.serialization.json)
 
 

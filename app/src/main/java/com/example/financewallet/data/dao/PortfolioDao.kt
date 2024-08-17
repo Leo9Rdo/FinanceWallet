@@ -5,6 +5,8 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import androidx.room.Upsert
 import com.example.financewallet.data.entity.PortfolioEntity
 
 @Dao
@@ -15,8 +17,8 @@ interface PortfolioDao {
     @Query("SELECT * FROM portfolios")
     suspend fun getAllPortfolios(): List<PortfolioEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun savePortfolio(portfolio: PortfolioEntity)
+    @Upsert
+    suspend fun upsertPortfolio(portfolio: PortfolioEntity)
 
     @Delete
     suspend fun deletePortfolio(portfolio: PortfolioEntity)
