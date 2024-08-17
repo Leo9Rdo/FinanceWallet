@@ -1,6 +1,13 @@
 buildscript {
-    apply from: '../code_quality/detekt.gradle'
-    apply from: '../code_style/ktlint.gradle'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.51.1"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7"
+        // Другие classpath зависимости
+    }
 }
 
 plugins {
@@ -9,6 +16,8 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.google.ksp)
+
+    id("androidx.navigation.safeargs.kotlin")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -45,27 +54,30 @@ android {
 }
 
 dependencies {
-    implementation libs.hilt.android
-    kapt libs.hilt.compiler
-    implementation libs.androidx.navigation.fragment.ktx
-    implementation libs.androidx.navigation.ui.ktx
-    implementation libs.androidx.core.ktx
-    implementation libs.androidx.navigation.fragment
-    implementation libs.androidx.navigation.ui
-    androidTestImplementation libs.androidx.navigation.testing
-    implementation libs.androidx.appcompat
-    implementation libs.material
-    implementation libs.androidx.activity
-    implementation libs.androidx.constraintlayout
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
-    annotationProcessor(libs.androidx.room.compiler)
-    implementation libs.androidx.room.runtime
-    implementation libs.androidx.room.ktx
-    implementation libs.gson
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    androidTestImplementation(libs.androidx.navigation.testing)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
     implementation(libs.kotlinx.serialization.json)
-
-
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.gson)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
