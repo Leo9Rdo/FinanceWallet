@@ -66,6 +66,3 @@ dependencies {
     implementation libs.gson
     ksp(libs.androidx.room.compiler)
     implementation(libs.kotlinx.serialization.json)
-
-
-}
