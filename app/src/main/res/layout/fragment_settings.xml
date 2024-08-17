@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".presentation.settings.SettingsFragment">
 
     <TextView
-        android:id="@+id/fragment_settings_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:text="@string/select_currency"
+        android:textStyle="bold"
+        android:textSize="18sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/currency_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/default_currency"
+        android:gravity="center_vertical" />
+
+</LinearLayout>
