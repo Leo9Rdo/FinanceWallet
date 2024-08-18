@@ -14,6 +14,7 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -30,14 +31,14 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    @Named(QUALIFIER_IN_MEMORY)
+    @InMemory
     fun bindInMemoryPortfolioRepository(
         portfolioRepositoryImpl: PortfolioRepositoryImpl
     ): PortfolioRepository
 
     @Binds
     @Singleton
-    @Named(QUALIFIER_DATABASE)
+    @InDatabase
     fun bindDatabasePortfolioRepository(
         databasePortfolioRepository: DatabasePortfolioRepository
     ): PortfolioRepository
@@ -47,7 +48,12 @@ interface RepositoryModule {
     fun bindSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository
 
     companion object {
-        const val QUALIFIER_IN_MEMORY = "InMemory"
-        const val QUALIFIER_DATABASE = "Database"
+        @Qualifier
+        @Retention(AnnotationRetention.BINARY)
+        annotation class InMemory
+
+        @Qualifier
+        @Retention(AnnotationRetention.BINARY)
+        annotation class InDatabase
     }
 }
