@@ -8,7 +8,7 @@ import java.time.LocalDate
 abstract class Asset(
     open val id: Int,
     open val name: String,
-  @Contextual  open val currency: Currency,
+    @Contextual open val currency: Currency,
     open val marketValue: Double,
     @Contextual open val purchaseDate: LocalDate
 ) {

@@ -18,10 +18,8 @@ constraintlayout = "2.1.4"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
 retrofitVersion = "2.9.0"
-roomRuntime = "2.6.1"
 ksp = "1.9.10-1.0.13"
 okhttp = "4.9.3"
-roomCompiler = "2.6.1"
 roomKtx = "2.6.1"
 
 [libraries]
@@ -48,8 +46,6 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 
 [plugins]
@@ -59,3 +55,4 @@ dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hi
 jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+androidx-navigation-safe-args-kotlin = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationFragmentKtx" }

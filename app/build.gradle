@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.google.ksp)
-    id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.androidx.navigation.safe.args.kotlin)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -51,7 +51,6 @@ android {
 dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.core.ktx)
@@ -67,7 +66,6 @@ dependencies {
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     implementation(libs.gson)
     testImplementation(libs.junit)

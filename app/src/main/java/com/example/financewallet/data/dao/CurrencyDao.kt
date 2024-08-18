@@ -1,16 +1,15 @@
 package com.example.financewallet.data.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import com.example.financewallet.data.entity.CurrencyEntity
 
 @Dao
 interface CurrencyDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCurrency(currency: CurrencyEntity)
+    @Upsert
+    suspend fun upsertCurrency(currency: CurrencyEntity)
 
     @Query("SELECT * FROM currencies WHERE id = :currencyId")
     suspend fun getCurrencyById(currencyId: Int): CurrencyEntity?
