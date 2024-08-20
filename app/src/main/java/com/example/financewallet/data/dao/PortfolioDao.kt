@@ -3,10 +3,8 @@ package com.example.financewallet.data.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Upsert
 import com.example.financewallet.data.entity.PortfolioEntity
-import com.example.financewallet.data.entity.PortfolioWithAssets
 
 @Dao
 interface PortfolioDao {
@@ -23,7 +21,4 @@ interface PortfolioDao {
     @Delete
     suspend fun deletePortfolio(portfolio: PortfolioEntity)
 
-    @Transaction
-    @Query("SELECT * FROM portfolios WHERE id = :portfolioId")
-    suspend fun getPortfolioWithAssets(portfolioId: Int): PortfolioWithAssets?
 }

@@ -14,10 +14,11 @@ import com.example.financewallet.data.entity.PortfolioEntity
 import com.example.financewallet.data.entity.PriceHistoryEntity
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.financewallet.data.entity.PortfolioAssetJoin
 
 @Database(
-    entities = [AssetEntity::class, CurrencyEntity::class, PortfolioEntity::class, PriceHistoryEntity::class],
-    version = 2,
+    entities = [AssetEntity::class, CurrencyEntity::class, PortfolioEntity::class, PriceHistoryEntity::class, PortfolioAssetJoin::class],
+    version = 3,
     exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -30,9 +31,9 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
-        val MIGRATION_1_2 = object : Migration(1, 2) {
+        val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE portfolios ADD COLUMN new_column INTEGER DEFAULT 0")
+                database.execSQL("CREATE TABLE IF NOT EXISTS `portfolio_asset_join` (`portfolioId` INTEGER NOT NULL, `assetId` INTEGER NOT NULL, PRIMARY KEY(`portfolioId`, `assetId`), FOREIGN KEY(`portfolioId`) REFERENCES `portfolios`(`id`) ON DELETE CASCADE, FOREIGN KEY(`assetId`) REFERENCES `assets`(`id`) ON DELETE CASCADE)")
             }
         }
 
@@ -43,7 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 instance
