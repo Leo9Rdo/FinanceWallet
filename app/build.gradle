@@ -1,6 +1,12 @@
 buildscript {
-    apply from: '../code_quality/detekt.gradle'
-    apply from: '../code_style/ktlint.gradle'
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath libs.hilt.android.gradle.plugin
+        classpath libs.androidx.navigation.safe.args.gradle.plugin
+    }
 }
 
 plugins {
@@ -8,64 +14,61 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
-    id "org.jetbrains.kotlin.plugin.serialization" version "1.8.0"
-    id "androidx.navigation.safeargs.kotlin"
+    alias(libs.plugins.google.ksp)
+    alias(libs.plugins.androidx.navigation.safe.args.kotlin)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace 'com.example.financewallet'
-    compileSdk 34
+    namespace = "com.example.financewallet"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId "com.example.financewallet"
-        minSdk 26
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.example.financewallet"
+        minSdk = 26
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
-    implementation libs.androidx.datastore.preferences
-    implementation libs.retrofit
-    implementation libs.okhttp
-    implementation libs.kotlinx.serialization.json
-    implementation libs.converter.kotlinx.serialization
-    implementation libs.kotlinx.coroutines.core
-    implementation libs.kotlinx.coroutines.android
-    implementation libs.hilt.android
-    kapt libs.hilt.compiler
-    def nav_version = "2.7.7"
-    implementation libs.androidx.navigation.fragment.ktx
-    implementation libs.androidx.navigation.ui.ktx
-    implementation libs.androidx.core.ktx
-    implementation libs.androidx.navigation.fragment
-    implementation libs.androidx.navigation.ui
-    androidTestImplementation libs.androidx.navigation.testing
-    implementation libs.androidx.appcompat
-    implementation libs.material
-    implementation libs.androidx.activity
-    implementation libs.androidx.constraintlayout
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.core.ktx)
+    androidTestImplementation(libs.androidx.navigation.testing)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    ksp libs.androidx.room.room.compiler
 }

@@ -2,16 +2,19 @@ package com.example.financewallet.di
 
 import com.example.financewallet.data.AssetRepositoryImpl
 import com.example.financewallet.data.CurrencyRepositoryImpl
-import com.example.financewallet.data.SettingsRepositoryImpl
 import com.example.financewallet.data.PortfolioRepositoryImpl
+import com.example.financewallet.data.SettingsRepositoryImpl
+import com.example.financewallet.data.database.DatabasePortfolioRepository
 import com.example.financewallet.domain.repository.AssetRepository
 import com.example.financewallet.domain.repository.CurrencyRepository
-import com.example.financewallet.domain.repository.SettingsRepository
 import com.example.financewallet.domain.repository.PortfolioRepository
+import com.example.financewallet.domain.repository.SettingsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -20,7 +23,7 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindAssetListRepository(assetRepositoryImpl: AssetRepositoryImpl): AssetRepository
+    fun bindAssetRepository(assetRepositoryImpl: AssetRepositoryImpl): AssetRepository
 
     @Binds
     @Singleton
@@ -28,11 +31,29 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository
+    @InMemory
+    fun bindInMemoryPortfolioRepository(
+        portfolioRepositoryImpl: PortfolioRepositoryImpl
+    ): PortfolioRepository
 
     @Binds
     @Singleton
-    fun bindPortfolioRepository(
-        portfolioRepositoryImpl: PortfolioRepositoryImpl
+    @InDatabase
+    fun bindDatabasePortfolioRepository(
+        databasePortfolioRepository: DatabasePortfolioRepository
     ): PortfolioRepository
+
+    @Binds
+    @Singleton
+    fun bindSettingsRepository(settingsRepositoryImpl: SettingsRepositoryImpl): SettingsRepository
+
+    companion object {
+        @Qualifier
+        @Retention(AnnotationRetention.BINARY)
+        annotation class InMemory
+
+        @Qualifier
+        @Retention(AnnotationRetention.BINARY)
+        annotation class InDatabase
+    }
 }

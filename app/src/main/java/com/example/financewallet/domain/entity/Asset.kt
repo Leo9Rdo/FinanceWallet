@@ -1,13 +1,16 @@
 package com.example.financewallet.domain.entity
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import java.time.LocalDate
 
+@Serializable
 abstract class Asset(
     open val id: Int,
     open val name: String,
-    open val currency: Currency,
+    @Contextual open val currency: Currency,
     open val marketValue: Double,
-    open val purchaseDate: LocalDate
+    @Contextual open val purchaseDate: LocalDate
 ) {
     abstract fun areContentsTheSame(other: Asset): Boolean
 }

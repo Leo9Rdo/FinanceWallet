@@ -2,10 +2,10 @@ package com.example.financewallet.data
 
 import com.example.financewallet.domain.entity.Portfolio
 import com.example.financewallet.domain.repository.PortfolioRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Singleton
 class PortfolioRepositoryImpl @Inject constructor() : PortfolioRepository {
@@ -29,7 +29,7 @@ class PortfolioRepositoryImpl @Inject constructor() : PortfolioRepository {
         }
     }
 
-    override suspend fun deletePortfolio(id: Int): Unit = withContext(Dispatchers.IO)  {
+    override suspend fun deletePortfolio(id: Int): Unit = withContext(Dispatchers.IO) {
         portfolios.remove(id)
     }
 }
