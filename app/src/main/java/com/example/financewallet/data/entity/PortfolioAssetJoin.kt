@@ -2,6 +2,7 @@ package com.example.financewallet.data.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 
 @Entity(
     tableName = "portfolio_asset_join",
@@ -19,7 +20,8 @@ import androidx.room.ForeignKey
             childColumns = ["assetId"],
             onDelete = ForeignKey.CASCADE
         )
-    ]
+    ],
+    indices = [Index(value = ["portfolioId"]), Index(value = ["assetId"])]
 )
 data class PortfolioAssetJoin(
     val portfolioId: Int,

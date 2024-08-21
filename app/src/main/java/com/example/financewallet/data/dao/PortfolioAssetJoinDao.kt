@@ -1,10 +1,7 @@
 package com.example.financewallet.data.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Delete
 import androidx.room.Upsert
 import com.example.financewallet.data.entity.AssetEntity
 import com.example.financewallet.data.entity.PortfolioAssetJoin
@@ -21,4 +18,7 @@ interface PortfolioAssetJoinDao {
 
     @Query("SELECT * FROM portfolios INNER JOIN portfolio_asset_join ON portfolios.id = portfolio_asset_join.portfolioId WHERE portfolio_asset_join.assetId = :assetId")
     suspend fun getPortfoliosForAsset(assetId: Int): List<PortfolioEntity>
+
+    @Query("DELETE FROM portfolio_asset_join WHERE portfolioId = :portfolioId")
+    suspend fun deleteAllAssetsForPortfolio(portfolioId: Int)
 }

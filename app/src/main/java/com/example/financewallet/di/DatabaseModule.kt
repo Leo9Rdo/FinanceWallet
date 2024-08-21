@@ -2,6 +2,7 @@ package com.example.financewallet.di
 
 import android.content.Context
 import androidx.room.Room
+import com.example.financewallet.data.dao.PortfolioAssetJoinDao
 import com.example.financewallet.data.dao.PortfolioDao
 import com.example.financewallet.data.database.AppDatabase
 import dagger.Module
@@ -29,4 +30,10 @@ class DatabaseModule {
     fun providePortfolioDao(database: AppDatabase): PortfolioDao {
         return database.portfolioDao()
     }
+
+    @Provides
+    fun providePortfolioAssetJoinDao(database: AppDatabase): PortfolioAssetJoinDao {
+        return database.portfolioAssetJoinDao()
+    }
+
 }

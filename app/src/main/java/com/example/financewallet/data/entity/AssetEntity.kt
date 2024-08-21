@@ -2,9 +2,8 @@ package com.example.financewallet.data.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.financewallet.data.database.AssetListConverter
 
 @Entity(
     tableName = "assets",
@@ -13,15 +12,22 @@ import com.example.financewallet.data.database.AssetListConverter
         parentColumns = ["id"],
         childColumns = ["portfolioId"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index(value = ["portfolioId"])]
 )
-@TypeConverters(AssetListConverter::class)
+
 data class AssetEntity(
     @PrimaryKey val id: Int = 0,
     val name: String,
-    val currencyId: Int,
+    val currency: String,
     val marketValue: Double,
     val purchaseDate: String,
     val type: String,
-    val portfolioId: Int
+    val portfolioId: Int,
+    val amount: Int,
+    val ticker: String,
+    val couponRate: Double,
+    val expiryDate: String,
+    val price: Double,
+    val exchangeRate: Double
 )
