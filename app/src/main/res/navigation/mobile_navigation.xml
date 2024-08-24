@@ -24,5 +24,14 @@
         android:id="@+id/navigation_settings"
         android:name="com.example.financewallet.presentation.settings.SettingsFragment"
         android:label="Settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_navigation_settings_to_navigation_string_selector_bottom_sheet"
+            app:destination="@id/navigation_string_selector_bottom_sheet" />
+    </fragment>
+    <dialog
+        android:id="@+id/navigation_string_selector_bottom_sheet"
+        android:name="com.example.financewallet.presentation.settings.StringSelectorBottomSheetFragment"
+        android:label="String Selector"
+        tools:layout="@layout/fragment_string_selector_bottom_sheet" />
 </navigation>
